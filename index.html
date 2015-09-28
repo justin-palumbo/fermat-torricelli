@@ -34,17 +34,7 @@
 
 			// This contains the points and the axes.
 			svg = pointHouse.buildContainer();
-			pointLists.forEach(pointList => {
-				svg.append("g").selectAll("circle")
-					.data(pointList)
-					.enter()
-					.append("circle")
-					.attr("cx", point => {return pointHouse.xScale(point.x);})
-					.attr("cy", point => {return pointHouse.yScale(point.y);})
-					.attr("r", point => {return point.visConfig.visibleRadius;})
-					.attr("fill", point => {return point.visConfig.restingColor;})
-					.call(Behaviors.pointDrag)
-			});
+			pointHouse.draw();
 
 			// Second stop: draw the components that display coords.
 

@@ -44,5 +44,26 @@ pointHouse = {
       .call(yAxis);
 
     return svg;
-  }
+  },
+
+  update() {
+    var points = Points.otherPoints.concat([Points.mainPoint]);
+    d3.select("svg").selectAll("circle")
+      .data(points, d => d.name)
+      .attr("cx", point => {return pointHouse.xScale(point.x);})
+      .attr("cy", point => {return pointHouse.yScale(point.y);});
+  },
+
+  draw() {
+		var points = Points.otherPoints.concat([Points.mainPoint]);
+    d3.select("svg").append("g").selectAll("circle")
+      .data(points, d => d.name)
+      .enter()
+      .append("circle")
+      .attr("cx", point => {return pointHouse.xScale(point.x);})
+      .attr("cy", point => {return pointHouse.yScale(point.y);})
+      .attr("r", point => {return point.visConfig.visibleRadius;})
+      .attr("fill", point => {return point.visConfig.restingColor;})
+      .call(Behaviors.pointDrag);
+  },
 }

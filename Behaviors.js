@@ -6,10 +6,9 @@ Behaviors = {
     }).on('drag', function(point) {
       var displayX = d3.event.x;
       var displayY = d3.event.y;
-      this.setAttribute("cx", displayX);
-      this.setAttribute("cy", displayY);
       point.x = pointHouse.xScale.invert(displayX);
       point.y = pointHouse.yScale.invert(displayY);
+      pointHouse.update();
       point.displayCoords();
 			Stats.displayWeight();
     }).on('dragend', function(d) {
