@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Fermat-Torricelli</title>
+		<link rel="stylesheet" type="text/css" href="styles.css">
+		<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+		<script type="text/javascript" src="Behaviors.js"></script>
+		<script type="text/javascript" src="pointHouse.js"></script>
+		<script type="text/javascript" src="Points.js"></script>
+		<script type="text/javascript" src="Stats.js"></script>
+	</head>
+	<div>
+		FERMAT-TORRICELLI
+	</div>
+
+	<body>
+		<div id="points" class="points"></div>
+		<div id="stats">
+
+			TOTAL DISTANCE:
+			<div id="weights">
+			</div>
+
+			COORDS:
+			<div id="coords">
+			</div>
+		</div>
+		<script type="text/javascript">
+
+			var pointLists = [[Points.mainPoint], Points.otherPoints];
+
+			// First step: we draw all of the points.
+
+			// This contains the points and the axes.
+			svg = pointHouse.buildContainer();
+			pointLists.forEach(pointList => {
+				svg.append("g").selectAll("circle")
+					.data(pointList)
+					.enter()
+					.append("circle")
+					.attr("cx", point => {return pointHouse.xScale(point.x);})
+					.attr("cy", point => {return pointHouse.yScale(point.y);})
+					.attr("r", point => {return point.visConfig.visibleRadius;})
+					.attr("fill", point => {return point.visConfig.restingColor;})
+					.call(Behaviors.pointDrag)
+			});
+
+			// Second stop: draw the components that display coords.
+
+			pointLists.forEach(pointList => {
+				var coordContainer = d3.select("#stats").append("g").selectAll("div")
+					.data(pointList)
+					.enter()
+					.append("div");
+				coordContainer.append("div").attr("class", "coordLabelBox")
+					.text(point => {return "coord " + point.name + ":";})
+				coordContainer.append("div")
+					.each(function(d) {d.setCoordDisplayNode(d3.select(this));
+						d.displayCoords();});
+			});
+
+			Stats.displayWeight();
+
+		</script>
+	</body>
+
+</html>
