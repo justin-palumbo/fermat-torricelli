@@ -8,17 +8,6 @@ class Point {
     this.y = y,
     this.visConfig = visConfig;
   }
-
-  // This is the node responsible for displaying coords for this point.
-  setCoordDisplayNode(node) {
-    this.coordDisplayNode = node;
-  }
-
-  displayCoords() {
-    this.coordDisplayNode.text("(" + this.x + "," + this.y + ")");
-    // this.coordDisplayNode.text("(" + pointHouse.xScale.invert(this.x)
-    //   + "," + pointHouse.yScale.invert(this.y) + ")");
-  }
 }
 
 var Points = {
@@ -29,18 +18,18 @@ var Points = {
     selectedColor: "blue",
   }),
 
-  otherPoints: [
-    new Point("1", 0, 0, {
+  anchors: [
+    new Point("Anchor1", 0, 0, {
       visibleRadius: 5,
       restingColor: "green",
       selectedColor: "blue",
     }),
-    new Point("2", 1, 0, {
+    new Point("Anchor2", 1, 0, {
       visibleRadius: 5,
       restingColor: "green",
       selectedColor: "blue",
     }),
-    new Point("3", .5, Math.sqrt(3) / 2, {
+    new Point("Anchor3", .5, Math.sqrt(3) / 2, {
       visibleRadius: 5,
       restingColor: "green",
       selectedColor: "blue",

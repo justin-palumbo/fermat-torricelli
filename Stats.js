@@ -1,4 +1,4 @@
-// Responsible for the calculation/display of distance info on RHS.
+// Responsible for the calculation of distance info on RHS.
 
 Stats = {
 
@@ -9,16 +9,11 @@ Stats = {
 
   getSummedWeight() {
       var sum = 0;
-      Points.otherPoints.forEach(
+      Points.anchors.forEach(
         point => {
             sum += this.distance(Points.mainPoint, point);
         }
       );
       return sum;
   },
-
-  displayWeight() {
-    d3.selectAll("#weights")
-      .text(this.getSummedWeight());
-  }
 }

@@ -47,15 +47,20 @@ pointHouse = {
   },
 
   update() {
-    var points = Points.otherPoints.concat([Points.mainPoint]);
+    var points = Points.anchors.concat([Points.mainPoint]);
     d3.select("svg").selectAll("circle")
       .data(points, d => d.name)
       .attr("cx", point => {return pointHouse.xScale(point.x);})
       .attr("cy", point => {return pointHouse.yScale(point.y);});
+    d3.selectAll(".coordValueBox")
+      .data(points, d => d.name)
+			.text(point => "(" + point.x + "," + point.y + ")");
+    d3.selectAll("#weights")
+      .text(Stats.getSummedWeight());
   },
 
   draw() {
-		var points = Points.otherPoints.concat([Points.mainPoint]);
+		var points = Points.anchors.concat([Points.mainPoint]);
     d3.select("svg").append("g").selectAll("circle")
       .data(points, d => d.name)
       .enter()
@@ -65,5 +70,18 @@ pointHouse = {
       .attr("r", point => {return point.visConfig.visibleRadius;})
       .attr("fill", point => {return point.visConfig.restingColor;})
       .call(Behaviors.pointDrag);
+
+		var coordContainer = d3.select("#stats").append("g").selectAll("div")
+			.data(points, d => d.name)
+			.enter()
+			.append("div");
+		coordContainer.append("div").attr("class", "coordLabelBox")
+			.text(point => {return "coord " + point.name + ":";})
+		coordContainer.append("div")
+      .attr("class", "coordValueBox")
+			.text(point => {return "(" + point.x + "," + point.y + ")";});
+
+    d3.selectAll("#weights")
+      .text(Stats.getSummedWeight());
   },
 }

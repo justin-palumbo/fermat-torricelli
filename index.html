@@ -28,29 +28,11 @@
 		</div>
 		<script type="text/javascript">
 
-			var pointLists = [[Points.mainPoint], Points.otherPoints];
-
 			// First step: we draw all of the points.
 
 			// This contains the points and the axes.
 			svg = pointHouse.buildContainer();
 			pointHouse.draw();
-
-			// Second stop: draw the components that display coords.
-
-			pointLists.forEach(pointList => {
-				var coordContainer = d3.select("#stats").append("g").selectAll("div")
-					.data(pointList)
-					.enter()
-					.append("div");
-				coordContainer.append("div").attr("class", "coordLabelBox")
-					.text(point => {return "coord " + point.name + ":";})
-				coordContainer.append("div")
-					.each(function(d) {d.setCoordDisplayNode(d3.select(this));
-						d.displayCoords();});
-			});
-
-			Stats.displayWeight();
 
 		</script>
 	</body>

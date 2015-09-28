@@ -9,8 +9,6 @@ Behaviors = {
       point.x = pointHouse.xScale.invert(displayX);
       point.y = pointHouse.yScale.invert(displayY);
       pointHouse.update();
-      point.displayCoords();
-			Stats.displayWeight();
     }).on('dragend', function(d) {
       this.setAttribute('fill', d.visConfig.restingColor);
     })
